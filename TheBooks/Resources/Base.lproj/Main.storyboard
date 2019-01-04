@@ -12,7 +12,7 @@
         <!--The Books-->
         <scene sceneID="W1K-4X-muo">
             <objects>
-                <tableViewController id="rTB-fn-svL" sceneMemberID="viewController">
+                <tableViewController id="rTB-fn-svL" customClass="TBBooksTableViewController" customModule="TheBooks" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" id="sS7-TT-hy9" userLabel="Books Table View">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -23,14 +23,14 @@
                             <textInputTraits key="textInputTraits"/>
                         </searchBar>
                         <prototypes>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" rowHeight="209" id="1Lx-3Z-JaP" userLabel="BookCell">
-                                <rect key="frame" x="0.0" y="72" width="375" height="209"/>
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="BookCell" rowHeight="184" id="1Lx-3Z-JaP" userLabel="BookCell" customClass="BookTableViewCell" customModule="TheBooks" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="72" width="375" height="184"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="1Lx-3Z-JaP" id="f17-zU-ARW">
-                                    <rect key="frame" x="0.0" y="0.0" width="375" height="208.5"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="375" height="183.5"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
-                                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="VQM-Ne-Zi8">
+                                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="BookCoverPlaceHolder" translatesAutoresizingMaskIntoConstraints="NO" id="VQM-Ne-Zi8">
                                             <rect key="frame" x="16" y="11" width="96" height="107"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         </imageView>
@@ -63,7 +63,7 @@
                                             <nil key="highlightedColor"/>
                                         </label>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Description" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="XmP-Hz-y6p">
-                                            <rect key="frame" x="16" y="126" width="343" height="69"/>
+                                            <rect key="frame" x="16" y="126" width="343" height="50"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="13"/>
                                             <nil key="textColor"/>
@@ -71,6 +71,14 @@
                                         </label>
                                     </subviews>
                                 </tableViewCellContentView>
+                                <connections>
+                                    <outlet property="author" destination="LFI-PW-cJW" id="FJ0-Ql-ZeU"/>
+                                    <outlet property="contributor" destination="s1x-qw-lol" id="MnN-yg-deS"/>
+                                    <outlet property="descr" destination="XmP-Hz-y6p" id="yZa-Mw-AlY"/>
+                                    <outlet property="posterImage" destination="VQM-Ne-Zi8" id="lfT-iS-ubO"/>
+                                    <outlet property="publisher" destination="XKt-Ob-ZgF" id="VOZ-xu-F5R"/>
+                                    <outlet property="title" destination="p0C-qv-mLc" id="0kq-Iz-1Io"/>
+                                </connections>
                             </tableViewCell>
                         </prototypes>
                         <connections>
@@ -103,4 +111,7 @@
             <point key="canvasLocation" x="-471" y="52"/>
         </scene>
     </scenes>
+    <resources>
+        <image name="BookCoverPlaceHolder" width="172" height="199"/>
+    </resources>
 </document>
