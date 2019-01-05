@@ -10,15 +10,26 @@ import UIKit
 
 class BooksViewModel{
     
-    var bookslist = [BookModel]()
+    //var bookslist = [BookModel]()
     var serviceManager = ServiceManager()
+    var booksRepository = BooksRepository()
+    
+    var booklist: Binder<[BookModel]> = Binder(nil)
     
     init() {
+        
+        booksRepository.openDatabase()
     }
     
-    func getBoolList(date:String, completion: @escaping (_ error: String?)->()) {
+    func getBookList(date:String, completion: @escaping (_ error: String?)->()) {
         
-        self.bookslist.removeAll()
+        do {
+            try self.booksRepository.deleteBooks()
+        }
+        catch {
+            
+        }
+        
         serviceManager.getBookList(date: date) { (response, error) in
             guard let responseData = response else {
                 print("Error/Null response data")
@@ -36,11 +47,32 @@ class BooksViewModel{
                     book.publisher = bookData.publisher
                     book.description = bookData.description
                     book.bookUrl = bookData.bookUrl
-                    self.bookslist.append(book)
+                    do {
+                        try self.booksRepository.insertBook(book: book)
+                    }
+                    catch {
+                        
+                    }
                 }
             }
             
+            if let booksList = self.booksRepository.fetch(){
+                self.booklist.value = booksList
+            }
+            
             completion("")
+        }
+    }
+    
+    func searchInBooks(searchString: String){
+        if let booksList = self.booksRepository.search(text: searchString){
+            self.booklist.value = booksList
+        }
+    }
+    
+    func fetchAllBooks(){
+        if let booksList = self.booksRepository.fetch(){
+            self.booklist.value = booksList
         }
     }
     

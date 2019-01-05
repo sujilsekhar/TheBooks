@@ -10,7 +10,7 @@ import UIKit
 
 class BookModel{
     
-    var title = ""
+    var title:String = ""
     var author = ""
     var publisher = ""
     var contributor = ""

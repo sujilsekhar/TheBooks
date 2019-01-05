@@ -19,9 +19,14 @@ class BooksTableViewController: UIViewController, UITableViewDelegate, UITableVi
     let datePicker  = UIDatePicker()
     let dateFormatter = DateFormatter()
     
+    var bookslist = [BookModel]()
+    var isNetworkCallActive = false
+    
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        print(self.getDocumentsDirectory())
         
         self.navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.search, target: self, action: #selector(addTapped))
         
@@ -36,6 +41,28 @@ class BooksTableViewController: UIViewController, UITableViewDelegate, UITableVi
 
         getBookListFromViewModel(date: Date())
         
+        
+        self.booksViewModel.booklist.bind{ [unowned self] in
+            self.bookslist  = $0
+            
+            DispatchQueue.main.async {
+                
+                if self.isNetworkCallActive {
+                    self.view.activityStopAnimating()
+                    self.isNetworkCallActive = false
+                }
+                
+                if self.bookslist.count > 0 {
+                    self.booksListView.isHidden = false
+                    self.booksListView.reloadData()
+                    self.booksListView.scroll(to: .top, animated: true)
+                }else{
+                    self.booksListView.isHidden = true
+                }
+                
+            }
+        }
+        
     }
 
     override func didReceiveMemoryWarning() {
@@ -44,6 +71,7 @@ class BooksTableViewController: UIViewController, UITableViewDelegate, UITableVi
     }
     
     @IBAction func addTapped(){
+        
         self.showDatePicker()
     }
 
@@ -56,7 +84,7 @@ extension BooksTableViewController {
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return booksViewModel.bookslist.count
+        return self.bookslist.count
     }
     
     
@@ -65,7 +93,7 @@ extension BooksTableViewController {
             return BookTableViewCell()
         }
         
-        let book = booksViewModel.bookslist[indexPath.row]
+        let book = self.bookslist[indexPath.row]
         cell.setup(book)
         
         return cell
@@ -98,22 +126,34 @@ extension BooksTableViewController{
     
     func getBookListFromViewModel(date:Date){
         
-        
-        self.booksViewModel.getBoolList(date: self.dateFormatter.string(from: date), completion: { error in
-            
-            DispatchQueue.main.async {
-                if self.booksViewModel.bookslist.count > 0 {
-                    self.booksListView.isHidden = false
-                    self.booksListView.reloadData()
-                }else{
-                    self.booksListView.isHidden = true
-                }
-                
-             }
+        self.isNetworkCallActive = true
+        self.view.activityStartAnimating(activityColor: UIColor.white, backgroundColor: UIColor.black.withAlphaComponent(0.5))
+        self.booksViewModel.getBookList(date: self.dateFormatter.string(from: date), completion: { error in
             
         })
     }
     
     
+}
+
+extension BooksTableViewController: UISearchBarDelegate {
+    
+    func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
+        if !searchText.isEmpty {
+            self.booksViewModel.searchInBooks(searchString: searchText);
+        }else{
+            self.booksViewModel.fetchAllBooks()
+        }
+    }
+    
+}
+
+extension BooksTableViewController{
+    
+    func getDocumentsDirectory() -> URL {
+        let paths = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)
+        let documentsDirectory = paths[0]
+        return documentsDirectory
+    }
 }
 
