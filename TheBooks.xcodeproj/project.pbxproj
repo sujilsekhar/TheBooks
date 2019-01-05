@@ -7,16 +7,26 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		7D0F1CB621E07A2500E26CAE /* TBBooksViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D0F1CB521E07A2500E26CAE /* TBBooksViewModel.swift */; };
-		7D0F1CB921E07A8300E26CAE /* TBBook.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D0F1CB821E07A8300E26CAE /* TBBook.swift */; };
-		7D0F1CBC21E07B2700E26CAE /* TBBooksService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D0F1CBB21E07B2700E26CAE /* TBBooksService.swift */; };
+		7D0F1CB621E07A2500E26CAE /* BooksViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D0F1CB521E07A2500E26CAE /* BooksViewModel.swift */; };
+		7D0F1CB921E07A8300E26CAE /* BookModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D0F1CB821E07A8300E26CAE /* BookModel.swift */; };
 		7D0F1CBE21E07F1600E26CAE /* BookTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D0F1CBD21E07F1600E26CAE /* BookTableViewCell.swift */; };
+		7D34538121E0414E007B1B3E /* EndPointType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D34538021E0414E007B1B3E /* EndPointType.swift */; };
+		7D34538321E0425F007B1B3E /* HTTPMethod.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D34538221E0425F007B1B3E /* HTTPMethod.swift */; };
+		7D34538521E04282007B1B3E /* HTTPRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D34538421E04282007B1B3E /* HTTPRequest.swift */; };
+		7D34538921E04442007B1B3E /* ParameterEncoder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D34538821E04442007B1B3E /* ParameterEncoder.swift */; };
+		7D34538B21E04501007B1B3E /* URLParameterEncoder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D34538A21E04501007B1B3E /* URLParameterEncoder.swift */; };
+		7D34538D21E0467B007B1B3E /* JSONParameterEncoder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D34538C21E0467B007B1B3E /* JSONParameterEncoder.swift */; };
+		7D34538F21E0486E007B1B3E /* EndPointRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D34538E21E0486E007B1B3E /* EndPointRouter.swift */; };
+		7D34539321E05389007B1B3E /* BooksApi.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D34539221E05389007B1B3E /* BooksApi.swift */; };
+		7D34539521E058FA007B1B3E /* ServiceManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D34539421E058FA007B1B3E /* ServiceManager.swift */; };
+		7D34539721E06646007B1B3E /* BooksResponseDecoder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D34539621E06646007B1B3E /* BooksResponseDecoder.swift */; };
+		7D34539921E0813E007B1B3E /* URLImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D34539821E0813E007B1B3E /* URLImageView.swift */; };
 		7DD90FDF21DDDE2000A6DB90 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7DD90FDE21DDDE2000A6DB90 /* AppDelegate.swift */; };
 		7DD90FE421DDDE2000A6DB90 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 7DD90FE221DDDE2000A6DB90 /* Main.storyboard */; };
 		7DD90FE621DDDE2200A6DB90 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 7DD90FE521DDDE2200A6DB90 /* Assets.xcassets */; };
 		7DD90FE921DDDE2200A6DB90 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 7DD90FE721DDDE2200A6DB90 /* LaunchScreen.storyboard */; };
 		7DD90FF421DDDE2200A6DB90 /* TheBooksTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7DD90FF321DDDE2200A6DB90 /* TheBooksTests.swift */; };
-		7DD9100421DE03A400A6DB90 /* TBBooksTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7DD9100321DE03A400A6DB90 /* TBBooksTableViewController.swift */; };
+		7DD9100421DE03A400A6DB90 /* BooksTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7DD9100321DE03A400A6DB90 /* BooksTableViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -30,10 +40,20 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		7D0F1CB521E07A2500E26CAE /* TBBooksViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TBBooksViewModel.swift; sourceTree = "<group>"; };
-		7D0F1CB821E07A8300E26CAE /* TBBook.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TBBook.swift; sourceTree = "<group>"; };
-		7D0F1CBB21E07B2700E26CAE /* TBBooksService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TBBooksService.swift; sourceTree = "<group>"; };
+		7D0F1CB521E07A2500E26CAE /* BooksViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BooksViewModel.swift; sourceTree = "<group>"; };
+		7D0F1CB821E07A8300E26CAE /* BookModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookModel.swift; sourceTree = "<group>"; };
 		7D0F1CBD21E07F1600E26CAE /* BookTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookTableViewCell.swift; sourceTree = "<group>"; };
+		7D34538021E0414E007B1B3E /* EndPointType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EndPointType.swift; sourceTree = "<group>"; };
+		7D34538221E0425F007B1B3E /* HTTPMethod.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HTTPMethod.swift; sourceTree = "<group>"; };
+		7D34538421E04282007B1B3E /* HTTPRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HTTPRequest.swift; sourceTree = "<group>"; };
+		7D34538821E04442007B1B3E /* ParameterEncoder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ParameterEncoder.swift; sourceTree = "<group>"; };
+		7D34538A21E04501007B1B3E /* URLParameterEncoder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = URLParameterEncoder.swift; sourceTree = "<group>"; };
+		7D34538C21E0467B007B1B3E /* JSONParameterEncoder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JSONParameterEncoder.swift; sourceTree = "<group>"; };
+		7D34538E21E0486E007B1B3E /* EndPointRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EndPointRouter.swift; sourceTree = "<group>"; };
+		7D34539221E05389007B1B3E /* BooksApi.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BooksApi.swift; sourceTree = "<group>"; };
+		7D34539421E058FA007B1B3E /* ServiceManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ServiceManager.swift; sourceTree = "<group>"; };
+		7D34539621E06646007B1B3E /* BooksResponseDecoder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BooksResponseDecoder.swift; sourceTree = "<group>"; };
+		7D34539821E0813E007B1B3E /* URLImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = URLImageView.swift; sourceTree = "<group>"; };
 		7DD90FDB21DDDE2000A6DB90 /* TheBooks.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TheBooks.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		7DD90FDE21DDDE2000A6DB90 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		7DD90FE321DDDE2000A6DB90 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -43,7 +63,7 @@
 		7DD90FEF21DDDE2200A6DB90 /* TheBooksTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = TheBooksTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		7DD90FF321DDDE2200A6DB90 /* TheBooksTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TheBooksTests.swift; sourceTree = "<group>"; };
 		7DD90FF521DDDE2200A6DB90 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		7DD9100321DE03A400A6DB90 /* TBBooksTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TBBooksTableViewController.swift; sourceTree = "<group>"; };
+		7DD9100321DE03A400A6DB90 /* BooksTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BooksTableViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -67,7 +87,7 @@
 		7D0F1CB721E07A5600E26CAE /* Models */ = {
 			isa = PBXGroup;
 			children = (
-				7D0F1CB821E07A8300E26CAE /* TBBook.swift */,
+				7D0F1CB821E07A8300E26CAE /* BookModel.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -75,9 +95,41 @@
 		7D0F1CBA21E07B0F00E26CAE /* API */ = {
 			isa = PBXGroup;
 			children = (
-				7D0F1CBB21E07B2700E26CAE /* TBBooksService.swift */,
+				7D34539221E05389007B1B3E /* BooksApi.swift */,
+				7D34539421E058FA007B1B3E /* ServiceManager.swift */,
+				7D34539621E06646007B1B3E /* BooksResponseDecoder.swift */,
 			);
 			path = API;
+			sourceTree = "<group>";
+		};
+		7D34537D21DFA15E007B1B3E /* NetworkUtils */ = {
+			isa = PBXGroup;
+			children = (
+				7D34538621E0432F007B1B3E /* Service */,
+				7D34538721E043A6007B1B3E /* Parameters */,
+			);
+			path = NetworkUtils;
+			sourceTree = "<group>";
+		};
+		7D34538621E0432F007B1B3E /* Service */ = {
+			isa = PBXGroup;
+			children = (
+				7D34538021E0414E007B1B3E /* EndPointType.swift */,
+				7D34538221E0425F007B1B3E /* HTTPMethod.swift */,
+				7D34538421E04282007B1B3E /* HTTPRequest.swift */,
+				7D34538E21E0486E007B1B3E /* EndPointRouter.swift */,
+			);
+			path = Service;
+			sourceTree = "<group>";
+		};
+		7D34538721E043A6007B1B3E /* Parameters */ = {
+			isa = PBXGroup;
+			children = (
+				7D34538821E04442007B1B3E /* ParameterEncoder.swift */,
+				7D34538A21E04501007B1B3E /* URLParameterEncoder.swift */,
+				7D34538C21E0467B007B1B3E /* JSONParameterEncoder.swift */,
+			);
+			path = Parameters;
 			sourceTree = "<group>";
 		};
 		7DD90FD221DDDE2000A6DB90 = {
@@ -101,6 +153,7 @@
 		7DD90FDD21DDDE2000A6DB90 /* TheBooks */ = {
 			isa = PBXGroup;
 			children = (
+				7D34537D21DFA15E007B1B3E /* NetworkUtils */,
 				7D0F1CBA21E07B0F00E26CAE /* API */,
 				7D0F1CB721E07A5600E26CAE /* Models */,
 				7DD9100221DDF56E00A6DB90 /* ViewModels */,
@@ -133,7 +186,7 @@
 		7DD90FFF21DDF52E00A6DB90 /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
-				7DD9100321DE03A400A6DB90 /* TBBooksTableViewController.swift */,
+				7DD9100321DE03A400A6DB90 /* BooksTableViewController.swift */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -152,6 +205,7 @@
 			isa = PBXGroup;
 			children = (
 				7D0F1CBD21E07F1600E26CAE /* BookTableViewCell.swift */,
+				7D34539821E0813E007B1B3E /* URLImageView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -159,7 +213,7 @@
 		7DD9100221DDF56E00A6DB90 /* ViewModels */ = {
 			isa = PBXGroup;
 			children = (
-				7D0F1CB521E07A2500E26CAE /* TBBooksViewModel.swift */,
+				7D0F1CB521E07A2500E26CAE /* BooksViewModel.swift */,
 			);
 			path = ViewModels;
 			sourceTree = "<group>";
@@ -265,12 +319,22 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				7D0F1CB921E07A8300E26CAE /* TBBook.swift in Sources */,
+				7D34539721E06646007B1B3E /* BooksResponseDecoder.swift in Sources */,
+				7D34538121E0414E007B1B3E /* EndPointType.swift in Sources */,
+				7D0F1CB921E07A8300E26CAE /* BookModel.swift in Sources */,
 				7DD90FDF21DDDE2000A6DB90 /* AppDelegate.swift in Sources */,
+				7D34539321E05389007B1B3E /* BooksApi.swift in Sources */,
 				7D0F1CBE21E07F1600E26CAE /* BookTableViewCell.swift in Sources */,
-				7DD9100421DE03A400A6DB90 /* TBBooksTableViewController.swift in Sources */,
-				7D0F1CB621E07A2500E26CAE /* TBBooksViewModel.swift in Sources */,
-				7D0F1CBC21E07B2700E26CAE /* TBBooksService.swift in Sources */,
+				7D34539521E058FA007B1B3E /* ServiceManager.swift in Sources */,
+				7D34538B21E04501007B1B3E /* URLParameterEncoder.swift in Sources */,
+				7D34538321E0425F007B1B3E /* HTTPMethod.swift in Sources */,
+				7DD9100421DE03A400A6DB90 /* BooksTableViewController.swift in Sources */,
+				7D34538521E04282007B1B3E /* HTTPRequest.swift in Sources */,
+				7D34538D21E0467B007B1B3E /* JSONParameterEncoder.swift in Sources */,
+				7D0F1CB621E07A2500E26CAE /* BooksViewModel.swift in Sources */,
+				7D34538921E04442007B1B3E /* ParameterEncoder.swift in Sources */,
+				7D34539921E0813E007B1B3E /* URLImageView.swift in Sources */,
+				7D34538F21E0486E007B1B3E /* EndPointRouter.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -12,7 +12,7 @@ class BookTableViewCell: UITableViewCell {
     
     static let identifier = "BookCell"
     
-    @IBOutlet weak var posterImage: UIImageView!
+    @IBOutlet weak var posterImage: URLImageView!
     @IBOutlet weak var title: UILabel!
     @IBOutlet weak var author: UILabel!
     @IBOutlet weak var publisher: UILabel!
@@ -23,7 +23,9 @@ class BookTableViewCell: UITableViewCell {
         descr.sizeToFit();
     }
     
-    func setup(_ book: TBBook) {
+    func setup(_ book: BookModel) {
+        posterImage.image = UIImage(named: "BookCoverPlaceHolder")
+        posterImage.from(link: book.bookUrl)
         title.text = book.title
         author.text = book.author
         publisher.text = book.publisher

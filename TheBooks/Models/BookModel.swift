@@ -8,11 +8,12 @@
 
 import UIKit
 
-class TBBook{
+class BookModel{
     
     var title = ""
     var author = ""
     var publisher = ""
     var contributor = ""
     var description  = ""
+    var bookUrl = ""
 }
