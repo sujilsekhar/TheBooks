@@ -30,6 +30,7 @@ class BooksViewModel{
             
             if error != nil {
                 completion(error)
+                return
             }
             
             guard let responseData = response else {
@@ -46,13 +47,17 @@ class BooksViewModel{
                         try self.booksRepository.insertBook(book: book)
                     }
                     catch {
-                        
+                        print("Error while inserting data")
                     }
                 }
             }
             
-            if let booksList = self.booksRepository.fetch(){
-                self.booklist.value = booksList
+            do{
+                if let booksList = try self.booksRepository.fetch(){
+                    self.booklist.value = booksList
+                }
+            }catch( let message){
+                completion(message.localizedDescription)
             }
             
             completion(nil)
@@ -60,23 +65,32 @@ class BooksViewModel{
     }
     
     func searchInBooks(searchString: String){
-        if let booksList = self.booksRepository.search(text: searchString){
-            self.booklist.value = booksList
+        do{
+            if let booksList = try self.booksRepository.search(text: searchString){
+                self.booklist.value = booksList
+            }
+        }catch{
+            
         }
+        
     }
     
     func fetchAllBooks(){
-        if let booksList = self.booksRepository.fetch(){
-            self.booklist.value = booksList
+        do{
+            if let booksList = try self.booksRepository.fetch(){
+                self.booklist.value = booksList
+            }
+        }catch{
+            print("Error while fetching data")
         }
     }
     
-    private func deleteBooks(){
+    func deleteBooks(){
         do {
             try self.booksRepository.deleteBooks()
         }
         catch {
-            
+            print("Error while deleting data")
         }
     }
     

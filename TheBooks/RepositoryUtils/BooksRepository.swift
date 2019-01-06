@@ -85,25 +85,22 @@ class BooksRepository {
         }
     }
     
-    func fetch() -> [BookModel]? {
+    func fetch() throws -> [BookModel]? {
         
         do{
             return try run(query: "SELECT title, author, publisher, contributor, description, bookUrl FROM books")
         }catch{
-            
+            throw SQLiteError.Step(message: db!.errorMessage)
         }
         
-        return nil;
     }
     
-    func search(text: String) -> [BookModel]? {
+    func search(text: String) throws -> [BookModel]? {
         do{
             return try run(query: "SELECT title, author, publisher, contributor, description, bookUrl FROM books WHERE books MATCH '\(text)*' AND rank MATCH 'bm25(\(titleWeight), \(authorWeight), \(publisherWeight), \(contributorWeight), \(descWeight) )' ORDER BY rank")
         }catch{
-            
+            throw SQLiteError.Step(message: db!.errorMessage)
         }
-        
-        return nil;
     }
     
     private func run(query: String) throws -> [BookModel] {

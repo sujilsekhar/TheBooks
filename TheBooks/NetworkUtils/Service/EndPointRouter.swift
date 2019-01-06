@@ -37,7 +37,7 @@ class EndPointRouter<EndPoint: EndPointType>: NetworkRouter {
         self.sessionTask?.cancel()
     }
     
-    fileprivate func buildRequest(from route: EndPoint) throws -> URLRequest {
+    private func buildRequest(from route: EndPoint) throws -> URLRequest {
         
         var request = URLRequest(url: route.baseURL.appendingPathComponent(route.servicePath),
                                  cachePolicy: .reloadIgnoringLocalAndRemoteCacheData,
@@ -74,7 +74,7 @@ class EndPointRouter<EndPoint: EndPointType>: NetworkRouter {
         }
     }
     
-    fileprivate func configureParameters(bodyParameters: Parameters?,
+    private func configureParameters(bodyParameters: Parameters?,
                                          bodyEncoding: ParameterEncoder,
                                          urlParameters: Parameters?,
                                          request: inout URLRequest) throws {
@@ -86,7 +86,7 @@ class EndPointRouter<EndPoint: EndPointType>: NetworkRouter {
         }
     }
     
-    fileprivate func addAdditionalHeaders(_ additionalHeaders: HTTPHeaders?, request: inout URLRequest) {
+    private func addAdditionalHeaders(_ additionalHeaders: HTTPHeaders?, request: inout URLRequest) {
         guard let headers = additionalHeaders else { return }
         for (key, value) in headers {
             request.setValue(value, forHTTPHeaderField: key)

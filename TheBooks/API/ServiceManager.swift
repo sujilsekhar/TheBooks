@@ -27,10 +27,10 @@ struct ServiceManager {
     static let environment : ServerEnvironment = .production
     static let APIKey = "76363c9e70bc401bac1e6ad88b13bd1d"
     
-    let endPointRouter = EndPointRouter<BooksApi>()
+    let endPointRouterBookList = EndPointRouter<BooksApi>()
     
     func getBookList(date: String, completion: @escaping (_ booksResponse: BookApiResponse?,_ error: String?)->()){
-        endPointRouter.request(.list(date: date)) { data, response, error in
+        endPointRouterBookList.request(.list(date: date)) { data, response, error in
             
             if error != nil {
                 completion(nil, "Please check your network connection.")

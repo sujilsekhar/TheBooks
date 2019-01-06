@@ -12,6 +12,7 @@ class BooksTableViewController: UIViewController {
     
     @IBOutlet var booksListView: UITableView!
     
+    @IBOutlet weak var searchBar: UISearchBar!
     @IBOutlet weak var noBooksLabel: UILabel!
     
     
@@ -28,6 +29,7 @@ class BooksTableViewController: UIViewController {
         self.navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.search, target: self, action: #selector(addTapped))
         
         booksListView.isHidden = true
+        searchBar.showsCancelButton = true
         
         self.addDatePicker()
         dateFormatter.dateFormat = "yyyy-MM-dd"
@@ -142,7 +144,23 @@ extension BooksTableViewController: UISearchBarDelegate {
         }
     }
     
+    func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
+        self.searchBar.resignFirstResponder()
+    }
+    
+    func searchBarTextDidEndEditing(_ searchBar: UISearchBar) {
+        self.searchBar.resignFirstResponder()
+    }
+    
+    func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
+        self.searchBar.text = ""
+        self.searchBar.resignFirstResponder()
+        self.booksViewModel.fetchAllBooks()
+    }
+    
 }
+
+
 
 extension BooksTableViewController{
     

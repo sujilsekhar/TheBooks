@@ -4,7 +4,6 @@
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
-        <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14088"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
@@ -155,6 +154,7 @@
                     <connections>
                         <outlet property="booksListView" destination="5ED-Cu-ERV" id="BF8-2f-TBi"/>
                         <outlet property="noBooksLabel" destination="XWm-US-nxh" id="hob-ON-Rqu"/>
+                        <outlet property="searchBar" destination="kwY-l6-rqP" id="fi0-Xe-iDg"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="MhX-1p-Z2n" userLabel="First Responder" sceneMemberID="firstResponder"/>
