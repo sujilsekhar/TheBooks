@@ -14,7 +14,7 @@ enum NetworkResponse:String {
     case badRequest = "Bad request"
     case outdated = "The url you requested is outdated."
     case failed = "Network request failed."
-    case noData = "Response returned with no data to decode."
+    case noData = "Response returned with no data."
     case unableToDecode = "We could not decode the response."
 }
 
@@ -45,9 +45,14 @@ struct ServiceManager {
                         return
                     }
                     do {
-                        let jsonData = try JSONSerialization.jsonObject(with: responseData, options: .mutableContainers)
-                        let apiResponse = try JSONDecoder().decode(BookApiResponse.self, from: responseData)
-                        completion(apiResponse,nil)
+                        _ = try JSONSerialization.jsonObject(with: responseData, options: .mutableContainers)
+                        let apiResponse = try JSONDecoder().decode(BookApiResponseMetaData.self, from: responseData)
+                        if apiResponse.numberOfResults > 0 {
+                            let apiResponse = try JSONDecoder().decode(BookApiResponse.self, from: responseData)
+                            completion(apiResponse,nil)
+                        }else{
+                            completion(nil, NetworkResponse.noData.rawValue)
+                        }
                     }catch {
                         print(error)
                         completion(nil, NetworkResponse.unableToDecode.rawValue)

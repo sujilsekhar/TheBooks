@@ -79,6 +79,5 @@ extension SQLiteDatabase {
         guard sqlite3_step(createTableStatement) == SQLITE_DONE else {
             throw SQLiteError.Step(message: errorMessage)
         }
-        print("\(table) table created.")
     }
 }

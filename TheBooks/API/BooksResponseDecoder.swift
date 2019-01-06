@@ -8,30 +8,30 @@
 
 import Foundation
 
+struct Book : Codable{
+    
+    let title : String
+    let author : String
+    let publisher : String
+    let contributor : String
+    let description  : String
+    let bookUrl : String
+    
+    enum CodingKeys : String, CodingKey{
+        case title = "title"
+        case author = "author"
+        case publisher = "publisher"
+        case contributor = "contributor"
+        case description = "description"
+        case bookUrl = "book_image"
+    }
+}
+
 struct BookApiResponse : Decodable{
     
     struct Results: Codable{
         
         struct Lists: Codable{
-            
-            struct Book : Codable{
-                
-                let title : String
-                let author : String
-                let publisher : String
-                let contributor : String
-                let description  : String
-                let bookUrl : String
-                
-                enum CodingKeys : String, CodingKey{
-                    case title = "title"
-                    case author = "author"
-                    case publisher = "publisher"
-                    case contributor = "contributor"
-                    case description = "description"
-                    case bookUrl = "book_image"
-                }
-            }
             
             let listId : Int
             let books : [Book]
@@ -66,9 +66,16 @@ struct BookApiResponse : Decodable{
 
 
 
+struct BookApiResponseMetaData : Decodable{
 
-
-
+    let status: String
+    let numberOfResults: Int
+    
+    private enum CodingKeys: String, CodingKey {
+        case status = "status"
+        case numberOfResults = "num_results"
+    }
+}
 
 
 

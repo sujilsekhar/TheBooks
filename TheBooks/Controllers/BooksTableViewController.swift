@@ -8,7 +8,7 @@
 
 import UIKit
 
-class BooksTableViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
+class BooksTableViewController: UIViewController {
     
     @IBOutlet var booksListView: UITableView!
     
@@ -22,26 +22,17 @@ class BooksTableViewController: UIViewController, UITableViewDelegate, UITableVi
     var bookslist = [BookModel]()
     var isNetworkCallActive = false
     
-
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        print(self.getDocumentsDirectory())
         
         self.navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.search, target: self, action: #selector(addTapped))
         
         booksListView.isHidden = true
         
+        self.addDatePicker()
         dateFormatter.dateFormat = "yyyy-MM-dd"
-        // Position the date picker
-        let frame = CGRect(x: 5, y: 20, width: self.view.frame.width - 20, height: 200)
-        datePicker.frame = frame
-        datePicker.datePickerMode = .date
-        datePicker.maximumDate = Date()
+        
 
-        getBookListFromViewModel(date: Date())
-        
-        
         self.booksViewModel.booklist.bind{ [unowned self] in
             self.bookslist  = $0
             
@@ -63,6 +54,8 @@ class BooksTableViewController: UIViewController, UITableViewDelegate, UITableVi
             }
         }
         
+        self.getBookListForToday()
+        
     }
 
     override func didReceiveMemoryWarning() {
@@ -77,7 +70,7 @@ class BooksTableViewController: UIViewController, UITableViewDelegate, UITableVi
 
 }
 
-extension BooksTableViewController {
+extension BooksTableViewController : UITableViewDelegate, UITableViewDataSource{
     
     func numberOfSections(in tableView: UITableView) -> Int {
             return 1
@@ -108,29 +101,32 @@ extension BooksTableViewController {
 
 extension BooksTableViewController{
     
-    func showDatePicker(){
-     
-      let dateChooserAlert = UIAlertController(title: "Choose date...",
-                                               message: nil,
-                                               preferredStyle: .actionSheet)
-      dateChooserAlert.view.addSubview(datePicker)
-      dateChooserAlert.addAction(UIAlertAction(title: "Done",
-                                               style: .cancel,
-                                               handler: { action in
-            self.getBookListFromViewModel(date: self.datePicker.date)
-      }))
-      let height: NSLayoutConstraint = NSLayoutConstraint(item: dateChooserAlert.view, attribute: .height, relatedBy: .equal, toItem: nil, attribute: .notAnAttribute, multiplier: 1.1, constant: 300)
-      dateChooserAlert.view.addConstraint(height)
-      self.present(dateChooserAlert, animated: true, completion: nil)
-    }
-    
     func getBookListFromViewModel(date:Date){
         
         self.isNetworkCallActive = true
         self.view.activityStartAnimating(activityColor: UIColor.white, backgroundColor: UIColor.black.withAlphaComponent(0.5))
         self.booksViewModel.getBookList(date: self.dateFormatter.string(from: date), completion: { error in
-            
+            if error != nil{
+                
+                DispatchQueue.main.async {
+                    if self.isNetworkCallActive {
+                        self.view.activityStopAnimating()
+                        self.isNetworkCallActive = false
+                    }
+                    self.showAlert(message: error!)
+                }
+            }
         })
+    }
+    
+    func getBookListForToday(){
+        do{
+            try self.booksViewModel.openDatabase()
+            getBookListFromViewModel(date: Date())
+        }catch( _){
+            self.navigationItem.rightBarButtonItem?.isEnabled = false
+            self.showAlert(message: "Error in initializing resources")
+        }
     }
     
     
@@ -150,10 +146,48 @@ extension BooksTableViewController: UISearchBarDelegate {
 
 extension BooksTableViewController{
     
-    func getDocumentsDirectory() -> URL {
-        let paths = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)
-        let documentsDirectory = paths[0]
-        return documentsDirectory
+    private func addDatePicker(){
+        
+        // Position the date picker
+        var frame = CGRect.zero
+        if DeviceType.IS_IPAD{
+            frame = CGRect(x: 5, y: 20, width: 300, height: 250)
+        }else{
+            frame = CGRect(x: 5, y: 20, width: self.view.frame.width - 20, height: 250)
+        }
+        datePicker.frame = frame
+        datePicker.datePickerMode = .date
+        datePicker.maximumDate = Date()
+        
     }
+    
+    func showDatePicker(){
+        
+        let dateChooserAlert = UIAlertController(title: "Choose date...",
+                                                 message: nil,
+                                                 preferredStyle: .actionSheet)
+        
+        if !DeviceType.IS_IPAD{
+            datePicker.center.x = self.view.center.x
+        }
+        
+        dateChooserAlert.view.addSubview(datePicker)
+        if DeviceType.IS_IPAD{
+            dateChooserAlert.popoverPresentationController?.sourceView = self.view
+            dateChooserAlert.popoverPresentationController?.sourceRect = self.datePicker.bounds
+        }
+        
+        dateChooserAlert.addAction(UIAlertAction(title: "Done",
+                                                 style: .default,
+                                                 handler: { action in
+                                                    self.getBookListFromViewModel(date: self.datePicker.date)
+        }))
+        let height: NSLayoutConstraint = NSLayoutConstraint(item: dateChooserAlert.view, attribute: .height, relatedBy: .equal, toItem: nil, attribute: .notAnAttribute, multiplier: 1.1, constant: 300)
+        dateChooserAlert.view.addConstraint(height)
+        dateChooserAlert.popoverPresentationController?.barButtonItem = self.navigationItem.rightBarButtonItem
+        self.present(dateChooserAlert, animated: true, completion: nil)
+    }
+    
 }
+
 

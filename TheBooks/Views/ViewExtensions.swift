@@ -38,6 +38,17 @@ extension UIView{
     }
 }
 
+extension UIViewController{
+    
+    func showAlert(message:String){
+        let alertController = UIAlertController(title: "Info", message: message, preferredStyle: .alert)
+        let okAction = UIAlertAction(title: "OK", style: .default) { (action:UIAlertAction) in
+        }
+        alertController.addAction(okAction)
+        self.present(alertController, animated: true, completion: nil)
+    }
+}
+
 extension UITableView {
     
     public func reloadData(_ completion: @escaping ()->()) {

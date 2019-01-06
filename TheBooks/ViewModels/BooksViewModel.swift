@@ -10,43 +10,38 @@ import UIKit
 
 class BooksViewModel{
     
-    //var bookslist = [BookModel]()
     var serviceManager = ServiceManager()
     var booksRepository = BooksRepository()
     
     var booklist: Binder<[BookModel]> = Binder(nil)
     
-    init() {
-        
-        booksRepository.openDatabase()
+    func openDatabase() throws{
+        do {
+            try booksRepository.openDatabase()
+        }
+        catch( let message) {
+            throw message
+        }
     }
     
     func getBookList(date:String, completion: @escaping (_ error: String?)->()) {
         
-        do {
-            try self.booksRepository.deleteBooks()
-        }
-        catch {
-            
-        }
-        
         serviceManager.getBookList(date: date) { (response, error) in
+            
+            if error != nil {
+                completion(error)
+            }
+            
             guard let responseData = response else {
-                print("Error/Null response data")
-                completion("Error/Null response data")
+                completion("No books available on the selected date")
                 return
             }
             
             
+            self.deleteBooks()
+            
             for list in responseData.results.lists{
-                for bookData in list.books{
-                    let book = BookModel()
-                    book.title = bookData.title
-                    book.author = bookData.author
-                    book.contributor = bookData.contributor
-                    book.publisher = bookData.publisher
-                    book.description = bookData.description
-                    book.bookUrl = bookData.bookUrl
+                for book in list.books{
                     do {
                         try self.booksRepository.insertBook(book: book)
                     }
@@ -60,7 +55,7 @@ class BooksViewModel{
                 self.booklist.value = booksList
             }
             
-            completion("")
+            completion(nil)
         }
     }
     
@@ -73,6 +68,15 @@ class BooksViewModel{
     func fetchAllBooks(){
         if let booksList = self.booksRepository.fetch(){
             self.booklist.value = booksList
+        }
+    }
+    
+    private func deleteBooks(){
+        do {
+            try self.booksRepository.deleteBooks()
+        }
+        catch {
+            
         }
     }
     

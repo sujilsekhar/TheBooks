@@ -27,7 +27,7 @@ class BooksRepository {
         db = nil
     }
     
-    func openDatabase() {
+    func openDatabase() throws{
         do {
             let fileManager = FileManager.default
             
@@ -41,21 +41,18 @@ class BooksRepository {
             let finalDatabaseURL = documentsUrl.first!.appendingPathComponent("Books.db")
             
             db = try SQLiteDatabase.open(path: finalDatabaseURL.absoluteString)
-            
-            print("Successfully opened connection to database.")
+        
             do {
                 try db?.createTable(table: BooksTable.self)
             } catch {
-                print(db?.errorMessage as Any)
+                throw SQLiteError.Step(message: db!.errorMessage)
             }
-        } catch SQLiteError.OpenDatabase(let message) {
-            print(message)
-        } catch{
-            
-        }
+        } catch  {
+            throw SQLiteError.OpenDatabase(message: db!.errorMessage)
+        } 
     }
     
-    func insertBook(book: BookModel) throws {
+    func insertBook(book: Book) throws {
         let insertSql = "INSERT INTO Books (title, author, publisher, contributor, description, bookUrl) VALUES (?, ?, ?, ?, ?, ?);"
         let insertStatement = try db?.prepareStatement(sql: insertSql)
         defer {
@@ -74,8 +71,6 @@ class BooksRepository {
         guard sqlite3_step(insertStatement) == SQLITE_DONE else {
             throw SQLiteError.Step(message: db!.errorMessage)
         }
-        
-        print("Successfully inserted row.")
     }
     
     func deleteBooks() throws {
@@ -88,8 +83,6 @@ class BooksRepository {
         guard sqlite3_step(deleteStatement) == SQLITE_DONE else {
             throw SQLiteError.Step(message: db!.errorMessage)
         }
-        
-        print("Deleted row.")
     }
     
     func fetch() -> [BookModel]? {
@@ -167,11 +160,5 @@ struct BooksTable: SQLTable {
         USING FTS5(title, author, publisher, contributor, description, bookUrl UNINDEXED);
         """
     }
-    
-//    static var createStatement: String {
-//        return """
-//        CREATE TABLE IF NOT EXISTS books (title, author, publisher, contributor, description, bookUrl);
-//        """
-//    }
 }
 

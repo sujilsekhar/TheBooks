@@ -26,6 +26,7 @@
 		7D3453A021E0AA9E007B1B3E /* SQLiteDatabase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D34539F21E0AA9E007B1B3E /* SQLiteDatabase.swift */; };
 		7D3453A221E0DE66007B1B3E /* ViewExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D3453A121E0DE66007B1B3E /* ViewExtensions.swift */; };
 		7D3453A421E0ED0E007B1B3E /* Binder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D3453A321E0ED0E007B1B3E /* Binder.swift */; };
+		7D3F104421E1B8CC0033C3E3 /* DeviceExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D3F104321E1B8CC0033C3E3 /* DeviceExtensions.swift */; };
 		7DD90FDF21DDDE2000A6DB90 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7DD90FDE21DDDE2000A6DB90 /* AppDelegate.swift */; };
 		7DD90FE421DDDE2000A6DB90 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 7DD90FE221DDDE2000A6DB90 /* Main.storyboard */; };
 		7DD90FE621DDDE2200A6DB90 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 7DD90FE521DDDE2200A6DB90 /* Assets.xcassets */; };
@@ -64,6 +65,7 @@
 		7D34539F21E0AA9E007B1B3E /* SQLiteDatabase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SQLiteDatabase.swift; sourceTree = "<group>"; };
 		7D3453A121E0DE66007B1B3E /* ViewExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewExtensions.swift; sourceTree = "<group>"; };
 		7D3453A321E0ED0E007B1B3E /* Binder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Binder.swift; sourceTree = "<group>"; };
+		7D3F104321E1B8CC0033C3E3 /* DeviceExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeviceExtensions.swift; sourceTree = "<group>"; };
 		7DD90FDB21DDDE2000A6DB90 /* TheBooks.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TheBooks.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		7DD90FDE21DDDE2000A6DB90 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		7DD90FE321DDDE2000A6DB90 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -151,6 +153,14 @@
 			path = RepositoryUtils;
 			sourceTree = "<group>";
 		};
+		7D3F104221E1B8BE0033C3E3 /* Utils */ = {
+			isa = PBXGroup;
+			children = (
+				7D3F104321E1B8CC0033C3E3 /* DeviceExtensions.swift */,
+			);
+			path = Utils;
+			sourceTree = "<group>";
+		};
 		7DD90FD221DDDE2000A6DB90 = {
 			isa = PBXGroup;
 			children = (
@@ -172,6 +182,7 @@
 		7DD90FDD21DDDE2000A6DB90 /* TheBooks */ = {
 			isa = PBXGroup;
 			children = (
+				7D3F104221E1B8BE0033C3E3 /* Utils */,
 				7D34539A21E0A433007B1B3E /* RepositoryUtils */,
 				7D34537D21DFA15E007B1B3E /* NetworkUtils */,
 				7D0F1CBA21E07B0F00E26CAE /* API */,
@@ -346,6 +357,7 @@
 				7D34539721E06646007B1B3E /* BooksResponseDecoder.swift in Sources */,
 				7D34538121E0414E007B1B3E /* EndPointType.swift in Sources */,
 				7D34539C21E0A46D007B1B3E /* BooksRepository.swift in Sources */,
+				7D3F104421E1B8CC0033C3E3 /* DeviceExtensions.swift in Sources */,
 				7D0F1CB921E07A8300E26CAE /* BookModel.swift in Sources */,
 				7DD90FDF21DDDE2000A6DB90 /* AppDelegate.swift in Sources */,
 				7D34539321E05389007B1B3E /* BooksApi.swift in Sources */,
@@ -525,11 +537,12 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 9PXB85WN57;
 				INFOPLIST_FILE = TheBooks/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.personal.TheBooks;
+				PRODUCT_BUNDLE_IDENTIFIER = com.personal.TheBook;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 4.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -543,11 +556,12 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 9PXB85WN57;
 				INFOPLIST_FILE = TheBooks/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.personal.TheBooks;
+				PRODUCT_BUNDLE_IDENTIFIER = com.personal.TheBook;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 4.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
