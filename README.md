@@ -12,7 +12,7 @@ The Book application is developed using MVVM design pattern and below are the de
 | Modules | Details |
 | ------ | ------ |
 | **_BooksTableViewController_** | The controller which manages user interface of the application |
-| **_BooksViewModel_** | The view model which encapsulates the buisiness logic of the application |
+| **_BooksViewModel_** | The view model which encapsulates the buisiness rules of the application |
 | **_BookModel_** | Object representation of  a book item |
 | **_ServiceManager_** | The manager which handles the service api interactions and retreival of data |
 | **_BooksApi_** | Defines the end point attributes of the books api |
