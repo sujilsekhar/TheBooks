@@ -1,10 +1,24 @@
+//MIT License
 //
-//  TBBooksTableViewController.swift
-//  TheBooks
+//Copyright © 2019 Sujil Chandresekharan
 //
-//  Created by Sujil Chandrasekharan on 03/01/19.
-//  Copyright © 2019 Sujil Chandrasekharan. All rights reserved.
+//Permission is hereby granted, free of charge, to any person obtaining a copy
+//of this software and associated documentation files (the "Software"), to deal
+//in the Software without restriction, including without limitation the rights
+//to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+//copies of the Software, and to permit persons to whom the Software is
+//furnished to do so, subject to the following conditions:
 //
+//The above copyright notice and this permission notice shall be included in all
+//copies or substantial portions of the Software.
+//
+//THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+//IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+//FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+//AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+//LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+//OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+//SOFTWARE.
 
 import UIKit
 
@@ -17,29 +31,31 @@ class BooksTableViewController: UIViewController {
     
     
     let booksViewModel = BooksViewModel()
+    var bookslist = [BookModel]()
+    
     let datePicker  = UIDatePicker()
     let dateFormatter = DateFormatter()
-    
-    var bookslist = [BookModel]()
     var isNetworkCallActive = false
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        //Set up button for search
         self.navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.search, target: self, action: #selector(addTapped))
         
+        //Initial visibility of UI elements
         booksListView.isHidden = true
         searchBar.showsCancelButton = true
         
+        //Add a datepicker to select a date
         self.addDatePicker()
         dateFormatter.dateFormat = "yyyy-MM-dd"
         
-
+        //Bind a closure so that UI can be updated when the underlying view model updates data
         self.booksViewModel.booklist.bind{ [unowned self] in
             self.bookslist  = $0
             
             DispatchQueue.main.async {
-                
                 if self.isNetworkCallActive {
                     self.view.activityStopAnimating()
                     self.isNetworkCallActive = false
@@ -52,10 +68,10 @@ class BooksTableViewController: UIViewController {
                 }else{
                     self.booksListView.isHidden = true
                 }
-                
             }
         }
         
+        //Fetch the data for tpday to stary with
         self.getBookListForToday()
         
     }
@@ -66,16 +82,59 @@ class BooksTableViewController: UIViewController {
     }
     
     @IBAction func addTapped(){
-        
         self.showDatePicker()
     }
 
 }
 
+//MARK: - View Model 
+
+extension BooksTableViewController{
+    
+    /**
+        Query view model to fetch the data.
+        This method only handles the error condition in the completion closure as
+        sucess is handled through binder call back
+    */
+    func getBookListFromViewModel(date:Date){
+        
+        self.isNetworkCallActive = true
+        self.view.activityStartAnimating(activityColor: UIColor.white, backgroundColor: UIColor.black.withAlphaComponent(0.5))
+        self.booksViewModel.getBookList(date: self.dateFormatter.string(from: date), completion: { error in
+            if error != nil{
+                
+                DispatchQueue.main.async {
+                    if self.isNetworkCallActive {
+                        self.view.activityStopAnimating()
+                        self.isNetworkCallActive = false
+                    }
+                    self.showAlert(message: error!)
+                }
+            }
+        })
+    }
+    /**
+       Query view model to fetch the data for today
+    */
+    func getBookListForToday(){
+        do{
+            try self.booksViewModel.openDatabase()
+            getBookListFromViewModel(date: Date())
+        }catch( _){
+            self.navigationItem.rightBarButtonItem?.isEnabled = false
+            self.showAlert(message: "Error in initializing resources")
+        }
+    }
+    
+    
+}
+
+//MARK: - TableView
+
 extension BooksTableViewController : UITableViewDelegate, UITableViewDataSource{
     
     func numberOfSections(in tableView: UITableView) -> Int {
-            return 1
+        return 1
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -98,41 +157,10 @@ extension BooksTableViewController : UITableViewDelegate, UITableViewDataSource{
         return 184
     }
     
-
-}
-
-extension BooksTableViewController{
-    
-    func getBookListFromViewModel(date:Date){
-        
-        self.isNetworkCallActive = true
-        self.view.activityStartAnimating(activityColor: UIColor.white, backgroundColor: UIColor.black.withAlphaComponent(0.5))
-        self.booksViewModel.getBookList(date: self.dateFormatter.string(from: date), completion: { error in
-            if error != nil{
-                
-                DispatchQueue.main.async {
-                    if self.isNetworkCallActive {
-                        self.view.activityStopAnimating()
-                        self.isNetworkCallActive = false
-                    }
-                    self.showAlert(message: error!)
-                }
-            }
-        })
-    }
-    
-    func getBookListForToday(){
-        do{
-            try self.booksViewModel.openDatabase()
-            getBookListFromViewModel(date: Date())
-        }catch( _){
-            self.navigationItem.rightBarButtonItem?.isEnabled = false
-            self.showAlert(message: "Error in initializing resources")
-        }
-    }
-    
     
 }
+
+//MARK: - TableView
 
 extension BooksTableViewController: UISearchBarDelegate {
     
@@ -160,7 +188,7 @@ extension BooksTableViewController: UISearchBarDelegate {
     
 }
 
-
+//MARK: - Date Picker
 
 extension BooksTableViewController{
     

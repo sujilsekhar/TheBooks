@@ -1,10 +1,24 @@
+//MIT License
 //
-//  ServiceManager.swift
-//  TheBooks
+//Copyright © 2019 Sujil Chandresekharan
 //
-//  Created by Sujil Chandrasekharan on 05/01/19.
-//  Copyright © 2019 Sujil Chandrasekharan. All rights reserved.
+//Permission is hereby granted, free of charge, to any person obtaining a copy
+//of this software and associated documentation files (the "Software"), to deal
+//in the Software without restriction, including without limitation the rights
+//to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+//copies of the Software, and to permit persons to whom the Software is
+//furnished to do so, subject to the following conditions:
 //
+//The above copyright notice and this permission notice shall be included in all
+//copies or substantial portions of the Software.
+//
+//THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+//IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+//FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+//AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+//LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+//OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+//SOFTWARE.
 
 import Foundation
 
@@ -23,13 +37,24 @@ enum Result<String>{
     case failure(String)
 }
 
-struct ServiceManager {
+/**
+ Manages all the service interaction through end point routers.
+ Extendable to any number of services by defining different endpoints and routers
+ */
+class ServiceManager {
+    
+    //Currently the service configuration are kept in the code
+    //TODO: Move to a more configurable place like plist or a settings bundle
     static let environment : ServerEnvironment = .production
     static let APIKey = "76363c9e70bc401bac1e6ad88b13bd1d"
     
+    //Router to connect to Books API endpoint
     let endPointRouterBookList = EndPointRouter<BooksApi>()
     
+    //retreive the book list thorugh router
     func getBookList(date: String, completion: @escaping (_ booksResponse: BookApiResponse?,_ error: String?)->()){
+        
+        //Initiate request on enpoint router
         endPointRouterBookList.request(.list(date: date)) { data, response, error in
             
             if error != nil {
@@ -45,9 +70,15 @@ struct ServiceManager {
                         return
                     }
                     do {
+                        
+                        //serialize response to check for malformed json
                         _ = try JSONSerialization.jsonObject(with: responseData, options: .mutableContainers)
+                        //decode the JSON for metadata first
                         let apiResponse = try JSONDecoder().decode(BookApiResponseMetaData.self, from: responseData)
+                        
+                        //if metadata have results then decode rest
                         if apiResponse.numberOfResults > 0 {
+                            //decode complete api response
                             let apiResponse = try JSONDecoder().decode(BookApiResponse.self, from: responseData)
                             completion(apiResponse,nil)
                         }else{
@@ -65,7 +96,8 @@ struct ServiceManager {
         }
     }
     
-    fileprivate func handleNetworkResponse(_ response: HTTPURLResponse) -> Result<String>{
+    //maps network errors to human readable text
+    private func handleNetworkResponse(_ response: HTTPURLResponse) -> Result<String>{
         switch response.statusCode {
         case 200...299: return .success
         case 401...500: return .failure(NetworkResponse.authenticationError.rawValue)

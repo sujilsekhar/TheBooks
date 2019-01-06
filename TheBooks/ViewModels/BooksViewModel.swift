@@ -1,13 +1,37 @@
+//MIT License
 //
-//  TBBooksViewModel.swift
-//  TheBooks
+//Copyright © 2019 Sujil Chandresekharan
 //
-//  Created by Sujil Chandrasekharan on 05/01/19.
-//  Copyright © 2019 Sujil Chandrasekharan. All rights reserved.
+//Permission is hereby granted, free of charge, to any person obtaining a copy
+//of this software and associated documentation files (the "Software"), to deal
+//in the Software without restriction, including without limitation the rights
+//to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+//copies of the Software, and to permit persons to whom the Software is
+//furnished to do so, subject to the following conditions:
 //
+//The above copyright notice and this permission notice shall be included in all
+//copies or substantial portions of the Software.
+//
+//THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+//IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+//FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+//AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+//LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+//OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+//SOFTWARE.
 
 import UIKit
 
+/**
+ Plays the role of view model in MVVM design pattern
+ 
+ Encapsulates following operations
+    1. Fetch data from service
+    2. Saving to local datbase
+    3. Facilitates fetch, search and deletion of book data
+    4. Updates the books list using a binder
+ 
+ */
 class BooksViewModel{
     
     var serviceManager = ServiceManager()
@@ -15,6 +39,10 @@ class BooksViewModel{
     
     var booklist: Binder<[BookModel]> = Binder(nil)
     
+    /**
+     This method opens the local SQlite db and creates the required tables
+ 
+    */
     func openDatabase() throws{
         do {
             try booksRepository.openDatabase()
@@ -24,6 +52,11 @@ class BooksViewModel{
         }
     }
     
+    /**
+     This method retrieves book data from service and update the view using th binder
+     Returns error through a completion block
+     
+     */
     func getBookList(date:String, completion: @escaping (_ error: String?)->()) {
         
         serviceManager.getBookList(date: date) { (response, error) in
@@ -47,7 +80,7 @@ class BooksViewModel{
                         try self.booksRepository.insertBook(book: book)
                     }
                     catch {
-                        print("Error while inserting data")
+                        Log.e("Error while inserting data")
                     }
                 }
             }
@@ -64,33 +97,42 @@ class BooksViewModel{
         }
     }
     
+    /**
+     Implements search functionality using SQLLite FTS5 and return booklist
+     
+    */
     func searchInBooks(searchString: String){
         do{
             if let booksList = try self.booksRepository.search(text: searchString){
                 self.booklist.value = booksList
             }
         }catch{
-            
+            Log.i("Search returned zero results")
         }
         
     }
-    
+    /**
+     Retreives all book data from local db
+    */
     func fetchAllBooks(){
         do{
             if let booksList = try self.booksRepository.fetch(){
                 self.booklist.value = booksList
             }
         }catch{
-            print("Error while fetching data")
+            Log.e("Error while fetching data")
         }
     }
     
+    /**
+     deletes all book data from local db
+     */
     func deleteBooks(){
         do {
             try self.booksRepository.deleteBooks()
         }
         catch {
-            print("Error while deleting data")
+            Log.e("Error while deleting data")
         }
     }
     

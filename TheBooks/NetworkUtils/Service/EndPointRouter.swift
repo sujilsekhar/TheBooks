@@ -1,10 +1,24 @@
+//MIT License
 //
-//  EndPointRouter.swift
-//  TheBooks
+//Copyright © 2019 Sujil Chandresekharan
 //
-//  Created by Sujil Chandrasekharan on 05/01/19.
-//  Copyright © 2019 Sujil Chandrasekharan. All rights reserved.
+//Permission is hereby granted, free of charge, to any person obtaining a copy
+//of this software and associated documentation files (the "Software"), to deal
+//in the Software without restriction, including without limitation the rights
+//to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+//copies of the Software, and to permit persons to whom the Software is
+//furnished to do so, subject to the following conditions:
 //
+//The above copyright notice and this permission notice shall be included in all
+//copies or substantial portions of the Software.
+//
+//THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+//IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+//FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+//AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+//LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+//OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+//SOFTWARE.
 
 import Foundation
 
@@ -15,11 +29,15 @@ protocol NetworkRouter: class {
     func request(_ route: EndPoint, completion: @escaping NetworkRouterCompletion)
     func cancel()
 }
-
+/**
+ Implements the actual service call making use of the underlying network infrastructure
+ 
+ */
 class EndPointRouter<EndPoint: EndPointType>: NetworkRouter {
     
     private var sessionTask: URLSessionTask?
     
+    //makes the service call using URLSession
     func request(_ route: EndPoint, completion: @escaping NetworkRouterCompletion) {
         let session = URLSession.shared
         do {
@@ -37,6 +55,7 @@ class EndPointRouter<EndPoint: EndPointType>: NetworkRouter {
         self.sessionTask?.cancel()
     }
     
+    //configures the request using the parameter encoders
     private func buildRequest(from route: EndPoint) throws -> URLRequest {
         
         var request = URLRequest(url: route.baseURL.appendingPathComponent(route.servicePath),
@@ -73,7 +92,7 @@ class EndPointRouter<EndPoint: EndPointType>: NetworkRouter {
             throw error
         }
     }
-    
+    //convinience method to configure parameters
     private func configureParameters(bodyParameters: Parameters?,
                                          bodyEncoding: ParameterEncoder,
                                          urlParameters: Parameters?,
@@ -86,6 +105,7 @@ class EndPointRouter<EndPoint: EndPointType>: NetworkRouter {
         }
     }
     
+    // add addition headers if provided by the endpoint definition
     private func addAdditionalHeaders(_ additionalHeaders: HTTPHeaders?, request: inout URLRequest) {
         guard let headers = additionalHeaders else { return }
         for (key, value) in headers {
