@@ -71,7 +71,8 @@ class BooksViewModel{
                 return
             }
             
-            
+            //Currently we are deleting existing books when a new api call kicks in
+            //TODO: Identify the delta and update the same only
             self.deleteBooks()
             
             for list in responseData.results.lists{
