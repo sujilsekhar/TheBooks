@@ -53,22 +53,28 @@ class BooksTableViewController: UIViewController {
         
         //Bind a closure so that UI can be updated when the underlying view model updates data
         self.booksViewModel.booklist.bind{ [unowned self] in
-            self.bookslist  = $0
             
-            DispatchQueue.main.async {
-                if self.isNetworkCallActive {
-                    self.view.activityStopAnimating()
-                    self.isNetworkCallActive = false
-                }
+            if let booklist = $0 {
+                self.bookslist  = booklist
                 
-                if self.bookslist.count > 0 {
-                    self.booksListView.isHidden = false
-                    self.booksListView.reloadData()
-                    self.booksListView.scroll(to: .top, animated: true)
-                }else{
-                    self.booksListView.isHidden = true
+                DispatchQueue.main.async {
+                    if self.isNetworkCallActive {
+                        self.view.activityStopAnimating()
+                        self.isNetworkCallActive = false
+                    }
+                    
+                    if self.bookslist.count > 0 {
+                        self.booksListView.isHidden = false
+                        self.booksListView.reloadData()
+                        self.booksListView.scroll(to: .top, animated: true)
+                    }else{
+                        self.booksListView.isHidden = true
+                    }
                 }
+            }else{
+                self.booksListView.isHidden = true
             }
+            
         }
         
         //Fetch the data for tpday to stary with
@@ -166,13 +172,14 @@ extension BooksTableViewController: UISearchBarDelegate {
     
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
         if !searchText.isEmpty {
-            self.booksViewModel.searchInBooks(searchString: searchText);
+            self.booksViewModel.searchInBooks(searchString: searchText)
         }else{
             self.booksViewModel.fetchAllBooks()
         }
     }
     
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
+        self.booksViewModel.searchInBooks(searchString: searchBar.text!)
         self.searchBar.resignFirstResponder()
     }
     

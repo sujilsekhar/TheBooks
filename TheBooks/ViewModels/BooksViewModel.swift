@@ -36,6 +36,7 @@ class BooksViewModel{
     
     var serviceManager = ServiceManager()
     var booksRepository = BooksRepository()
+    var keyWordIndexer = KeywordIndexer()
     
     var booklist: Binder<[BookModel]> = Binder(nil)
     
@@ -75,24 +76,44 @@ class BooksViewModel{
             //TODO: Identify the delta and update the same only
             self.deleteBooks()
             
+            var identifier:UInt = 1
             for list in responseData.results.lists{
                 for book in list.books{
-                    do {
+                    
+                    let bookData = BookModel()
+                    bookData.title = book.title
+                    bookData.author =  book.author
+                    bookData.publisher = book.publisher
+                    bookData.contributor = book.contributor
+                    bookData.description = book.description
+                    bookData.bookUrl = book.bookUrl
+                    bookData.bookIdentifier = identifier
+                    
+                    identifier += 1
+                    
+                    self.keyWordIndexer.indexBookData(book: bookData)
+                    
+                    
+                    /*do {
                         try self.booksRepository.insertBook(book: book)
                     }
                     catch {
                         Log.e("Error while inserting data")
-                    }
+                    }*/
                 }
             }
             
-            do{
+            /*do{
                 if let booksList = try self.booksRepository.fetch(){
                     self.booklist.value = booksList
                 }
             }catch( let message){
                 completion(message.localizedDescription)
-            }
+            }*/
+            
+            self.booklist.value = self.keyWordIndexer.getResultset();
+            
+            print(self.keyWordIndexer.printCurrentIndex())
             
             completion(nil)
         }
@@ -103,12 +124,24 @@ class BooksViewModel{
      
     */
     func searchInBooks(searchString: String){
-        do{
+        /*do{
             if let booksList = try self.booksRepository.search(text: searchString){
                 self.booklist.value = booksList
             }
         }catch{
             Log.i("Search returned zero results")
+        }*/
+        
+        print(searchString)
+        if searchString.count == 0 {
+            self.booklist.value = self.keyWordIndexer.getResultset();
+        }else{
+            let resultSet = self.keyWordIndexer.resultSet(searchString: searchString.lowercased())
+            if resultSet.count > 0 {
+                self.booklist.value = resultSet
+            }else{
+                self.booklist.value = [nil] as? [BookModel]
+            }
         }
         
     }
@@ -116,13 +149,14 @@ class BooksViewModel{
      Retreives all book data from local db
     */
     func fetchAllBooks(){
-        do{
+        /*do{
             if let booksList = try self.booksRepository.fetch(){
                 self.booklist.value = booksList
             }
         }catch{
             Log.e("Error while fetching data")
-        }
+        }*/
+        self.booklist.value = self.keyWordIndexer.getResultset();
     }
     
     /**
