@@ -39,17 +39,11 @@ class BooksViewModelTest: XCTestCase {
         
         let serviceExpectation = expectation(description: "Bookservice call expectation")
         
-        do{
-            try viewModel.openDatabase()
-            viewModel.getBookList(date: "2019-01-05") { error in
-                
-                XCTAssert((viewModel.booklist.value?.count)! > 0, "Get book list service failed")
-                serviceExpectation.fulfill()
-            }
-        }catch(let error){
-            XCTAssertEqual(error.localizedDescription, nil, "Get book list service failed")
+        viewModel.getBookList(date: "2019-01-05") { error in
+            XCTAssert((viewModel.booklist.value?.count)! > 0, "Get book list service failed")
+            serviceExpectation.fulfill()
         }
-        
+            
         waitForExpectations(timeout: 30) { error in
             if let error = error {
                 XCTFail("waitForExpectationsWithTimeout errored: \(error)")
@@ -62,17 +56,12 @@ class BooksViewModelTest: XCTestCase {
         
         let serviceExpectation = expectation(description: "Bookservice call expectation")
         
-        do{
-            try viewModel.openDatabase()
-            viewModel.getBookList(date: "1900-01-05") { error in
-                
-                XCTAssert(viewModel.booklist.value == nil, "")
-                serviceExpectation.fulfill()
-            }
-        }catch(let error){
-            XCTAssertEqual(error.localizedDescription, nil, "Get book list service failed")
+        viewModel.getBookList(date: "1900-01-05") { error in
+            
+            XCTAssert(viewModel.booklist.value == nil, "")
+            serviceExpectation.fulfill()
         }
-        
+    
         waitForExpectations(timeout: 30) { error in
             if let error = error {
                 XCTFail("waitForExpectationsWithTimeout errored: \(error)")
@@ -81,20 +70,16 @@ class BooksViewModelTest: XCTestCase {
     }
     
     func testFetchBookList() {
+        
         let viewModel = BooksViewModel()
         
         let serviceExpectation = expectation(description: "Bookservice call expectation")
         
-        do{
-            try viewModel.openDatabase()
-            viewModel.getBookList(date: "2019-01-05") { error in
-                
-                viewModel.fetchAllBooks()
-                XCTAssert((viewModel.booklist.value?.count)! > 0, "Book fetch failed")
-                serviceExpectation.fulfill()
-            }
-        }catch(let error){
-            XCTAssertEqual(error.localizedDescription, nil, "Get book list service failed")
+        viewModel.getBookList(date: "2019-01-05") { error in
+            
+            viewModel.fetchAllBooks()
+            XCTAssert((viewModel.booklist.value?.count)! > 0, "Book fetch failed")
+            serviceExpectation.fulfill()
         }
         
         waitForExpectations(timeout: 30) { error in
@@ -106,20 +91,20 @@ class BooksViewModelTest: XCTestCase {
     
     func testSearchForBook(){
         
-        var error:String?
+        let book = BookModel()
         
-        let book = Book(title: "test Title Biography", author: "test author", publisher: "test publiser", contributor: "test contributor", description: "test description", bookUrl: "test url")
+        book.title = "test Title Biography"
+        book.author = "test author"
+        book.publisher = "test publiser"
+        book.contributor = "test contributor"
+        book.description = "test description"
+        book.bookUrl = "test url"
+        
         let viewModel = BooksViewModel()
-        do{
-            try viewModel.openDatabase()
-            viewModel.deleteBooks()
-            try viewModel.booksRepository.insertBook(book: book)
-            viewModel.searchInBooks(searchString: "bio")
-            XCTAssertEqual(viewModel.booklist.value?.count, 1, "Error in sarching book")
-        }catch(let message){
-            error = message.localizedDescription
-        }
-        XCTAssertEqual(error, nil, "Error in fetching record")
+        viewModel.keyWordIndexer.addBookToIndexSet(book: book)
+        viewModel.searchInBooks(searchString: "bio")
+        XCTAssertEqual(viewModel.booklist.value?.count, 1, "Error in sarching book")
+
     }
     
 }

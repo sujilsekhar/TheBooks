@@ -31,7 +31,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
         
-        self.copyDatabaseIfNeeded()
         return true
     }
 
@@ -57,36 +56,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
     }
     
-    func copyDatabaseIfNeeded() {
-        // Move database file from bundle to documents folder
-        
-        let fileManager = FileManager.default
-        
-        let documentsUrl = fileManager.urls(for: .documentDirectory,
-                                            in: .userDomainMask)
-        
-        guard documentsUrl.count != 0 else {
-            return // Could not find documents URL
-        }
-        
-        let finalDatabaseURL = documentsUrl.first!.appendingPathComponent("Books.db")
-        
-        if !( (try? finalDatabaseURL.checkResourceIsReachable()) ?? false) {
-            print("DB does not exist in documents folder")
-            
-            let documentsURL = Bundle.main.resourceURL?.appendingPathComponent("Books.db")
-            
-            do {
-                try fileManager.copyItem(atPath: (documentsURL?.path)!, toPath: finalDatabaseURL.path)
-            } catch let error as NSError {
-                print("Couldn't copy file to final location! Error:\(error.description)")
-            }
-            
-        } else {
-            print("Database file found at path: \(finalDatabaseURL.path)")
-        }
-        
-    }
+    
 
 
 }

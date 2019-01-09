@@ -10,6 +10,9 @@
 		7D0F1CB621E07A2500E26CAE /* BooksViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D0F1CB521E07A2500E26CAE /* BooksViewModel.swift */; };
 		7D0F1CB921E07A8300E26CAE /* BookModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D0F1CB821E07A8300E26CAE /* BookModel.swift */; };
 		7D0F1CBE21E07F1600E26CAE /* BookTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D0F1CBD21E07F1600E26CAE /* BookTableViewCell.swift */; };
+		7D2352D421E4DD9E0041C917 /* StringTokenizer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D2352D321E4DD9E0041C917 /* StringTokenizer.swift */; };
+		7D2352D621E4DF780041C917 /* KeywordIndexer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D2352D521E4DF780041C917 /* KeywordIndexer.swift */; };
+		7D2352D821E4E6870041C917 /* KeywordIndexerTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D2352D721E4E6870041C917 /* KeywordIndexerTest.swift */; };
 		7D34538121E0414E007B1B3E /* EndPointType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D34538021E0414E007B1B3E /* EndPointType.swift */; };
 		7D34538321E0425F007B1B3E /* HTTPMethod.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D34538221E0425F007B1B3E /* HTTPMethod.swift */; };
 		7D34538521E04282007B1B3E /* HTTPRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D34538421E04282007B1B3E /* HTTPRequest.swift */; };
@@ -21,13 +24,9 @@
 		7D34539521E058FA007B1B3E /* ServiceManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D34539421E058FA007B1B3E /* ServiceManager.swift */; };
 		7D34539721E06646007B1B3E /* BooksResponseJSONDecoder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D34539621E06646007B1B3E /* BooksResponseJSONDecoder.swift */; };
 		7D34539921E0813E007B1B3E /* URLImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D34539821E0813E007B1B3E /* URLImageView.swift */; };
-		7D34539C21E0A46D007B1B3E /* BooksRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D34539B21E0A46D007B1B3E /* BooksRepository.swift */; };
-		7D34539E21E0A4C7007B1B3E /* Books.db in Resources */ = {isa = PBXBuildFile; fileRef = 7D34539D21E0A4C7007B1B3E /* Books.db */; };
-		7D3453A021E0AA9E007B1B3E /* SQLiteDatabase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D34539F21E0AA9E007B1B3E /* SQLiteDatabase.swift */; };
 		7D3453A221E0DE66007B1B3E /* ViewExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D3453A121E0DE66007B1B3E /* ViewExtensions.swift */; };
 		7D3453A421E0ED0E007B1B3E /* Binder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D3453A321E0ED0E007B1B3E /* Binder.swift */; };
 		7D3F104421E1B8CC0033C3E3 /* DeviceExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D3F104321E1B8CC0033C3E3 /* DeviceExtensions.swift */; };
-		7D3F104821E1CDFE0033C3E3 /* BookRepositoryTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D3F104721E1CDFE0033C3E3 /* BookRepositoryTest.swift */; };
 		7D3F104A21E1E41F0033C3E3 /* BooksViewModelTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D3F104921E1E41F0033C3E3 /* BooksViewModelTest.swift */; };
 		7D3F104C21E1F10E0033C3E3 /* ServiceManagerTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D3F104B21E1F10E0033C3E3 /* ServiceManagerTest.swift */; };
 		7D3F104E21E1F49D0033C3E3 /* BooksResponseJSONDescoderTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D3F104D21E1F49D0033C3E3 /* BooksResponseJSONDescoderTest.swift */; };
@@ -53,6 +52,9 @@
 		7D0F1CB521E07A2500E26CAE /* BooksViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BooksViewModel.swift; sourceTree = "<group>"; };
 		7D0F1CB821E07A8300E26CAE /* BookModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookModel.swift; sourceTree = "<group>"; };
 		7D0F1CBD21E07F1600E26CAE /* BookTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookTableViewCell.swift; sourceTree = "<group>"; };
+		7D2352D321E4DD9E0041C917 /* StringTokenizer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StringTokenizer.swift; sourceTree = "<group>"; };
+		7D2352D521E4DF780041C917 /* KeywordIndexer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeywordIndexer.swift; sourceTree = "<group>"; };
+		7D2352D721E4E6870041C917 /* KeywordIndexerTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeywordIndexerTest.swift; sourceTree = "<group>"; };
 		7D34538021E0414E007B1B3E /* EndPointType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EndPointType.swift; sourceTree = "<group>"; };
 		7D34538221E0425F007B1B3E /* HTTPMethod.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HTTPMethod.swift; sourceTree = "<group>"; };
 		7D34538421E04282007B1B3E /* HTTPRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HTTPRequest.swift; sourceTree = "<group>"; };
@@ -64,13 +66,9 @@
 		7D34539421E058FA007B1B3E /* ServiceManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ServiceManager.swift; sourceTree = "<group>"; };
 		7D34539621E06646007B1B3E /* BooksResponseJSONDecoder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BooksResponseJSONDecoder.swift; sourceTree = "<group>"; };
 		7D34539821E0813E007B1B3E /* URLImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = URLImageView.swift; sourceTree = "<group>"; };
-		7D34539B21E0A46D007B1B3E /* BooksRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BooksRepository.swift; sourceTree = "<group>"; };
-		7D34539D21E0A4C7007B1B3E /* Books.db */ = {isa = PBXFileReference; lastKnownFileType = file; path = Books.db; sourceTree = "<group>"; };
-		7D34539F21E0AA9E007B1B3E /* SQLiteDatabase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SQLiteDatabase.swift; sourceTree = "<group>"; };
 		7D3453A121E0DE66007B1B3E /* ViewExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewExtensions.swift; sourceTree = "<group>"; };
 		7D3453A321E0ED0E007B1B3E /* Binder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Binder.swift; sourceTree = "<group>"; };
 		7D3F104321E1B8CC0033C3E3 /* DeviceExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeviceExtensions.swift; sourceTree = "<group>"; };
-		7D3F104721E1CDFE0033C3E3 /* BookRepositoryTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookRepositoryTest.swift; sourceTree = "<group>"; };
 		7D3F104921E1E41F0033C3E3 /* BooksViewModelTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BooksViewModelTest.swift; sourceTree = "<group>"; };
 		7D3F104B21E1F10E0033C3E3 /* ServiceManagerTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ServiceManagerTest.swift; sourceTree = "<group>"; };
 		7D3F104D21E1F49D0033C3E3 /* BooksResponseJSONDescoderTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BooksResponseJSONDescoderTest.swift; sourceTree = "<group>"; };
@@ -122,13 +120,22 @@
 			path = API;
 			sourceTree = "<group>";
 		};
-		7D34537D21DFA15E007B1B3E /* NetworkUtils */ = {
+		7D2352D221E4DD820041C917 /* Indexer */ = {
+			isa = PBXGroup;
+			children = (
+				7D2352D321E4DD9E0041C917 /* StringTokenizer.swift */,
+				7D2352D521E4DF780041C917 /* KeywordIndexer.swift */,
+			);
+			path = Indexer;
+			sourceTree = "<group>";
+		};
+		7D34537D21DFA15E007B1B3E /* ServiceUtils */ = {
 			isa = PBXGroup;
 			children = (
 				7D34538621E0432F007B1B3E /* Service */,
 				7D34538721E043A6007B1B3E /* Parameters */,
 			);
-			path = NetworkUtils;
+			path = ServiceUtils;
 			sourceTree = "<group>";
 		};
 		7D34538621E0432F007B1B3E /* Service */ = {
@@ -150,15 +157,6 @@
 				7D34538C21E0467B007B1B3E /* JSONParameterEncoder.swift */,
 			);
 			path = Parameters;
-			sourceTree = "<group>";
-		};
-		7D34539A21E0A433007B1B3E /* RepositoryUtils */ = {
-			isa = PBXGroup;
-			children = (
-				7D34539B21E0A46D007B1B3E /* BooksRepository.swift */,
-				7D34539F21E0AA9E007B1B3E /* SQLiteDatabase.swift */,
-			);
-			path = RepositoryUtils;
 			sourceTree = "<group>";
 		};
 		7D3F104221E1B8BE0033C3E3 /* Utils */ = {
@@ -196,8 +194,8 @@
 				7DD90FFF21DDF52E00A6DB90 /* Controllers */,
 				7D0F1CB721E07A5600E26CAE /* Models */,
 				7D0F1CBA21E07B0F00E26CAE /* API */,
-				7D34537D21DFA15E007B1B3E /* NetworkUtils */,
-				7D34539A21E0A433007B1B3E /* RepositoryUtils */,
+				7D2352D221E4DD820041C917 /* Indexer */,
+				7D34537D21DFA15E007B1B3E /* ServiceUtils */,
 				7D3F104221E1B8BE0033C3E3 /* Utils */,
 				7DD9100021DDF53D00A6DB90 /* Resources */,
 				7DD90FEA21DDDE2200A6DB90 /* Info.plist */,
@@ -210,10 +208,10 @@
 			isa = PBXGroup;
 			children = (
 				7DD90FF521DDDE2200A6DB90 /* Info.plist */,
-				7D3F104721E1CDFE0033C3E3 /* BookRepositoryTest.swift */,
 				7D3F104921E1E41F0033C3E3 /* BooksViewModelTest.swift */,
 				7D3F104B21E1F10E0033C3E3 /* ServiceManagerTest.swift */,
 				7D3F104D21E1F49D0033C3E3 /* BooksResponseJSONDescoderTest.swift */,
+				7D2352D721E4E6870041C917 /* KeywordIndexerTest.swift */,
 			);
 			path = TheBooksTests;
 			sourceTree = "<group>";
@@ -237,7 +235,6 @@
 		7DD9100021DDF53D00A6DB90 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
-				7D34539D21E0A4C7007B1B3E /* Books.db */,
 				7DD90FE221DDDE2000A6DB90 /* Main.storyboard */,
 				7DD90FE521DDDE2200A6DB90 /* Assets.xcassets */,
 				7DD90FE721DDDE2200A6DB90 /* LaunchScreen.storyboard */,
@@ -347,7 +344,6 @@
 			files = (
 				7DD90FE921DDDE2200A6DB90 /* LaunchScreen.storyboard in Resources */,
 				7DD90FE621DDDE2200A6DB90 /* Assets.xcassets in Resources */,
-				7D34539E21E0A4C7007B1B3E /* Books.db in Resources */,
 				7DD90FE421DDDE2000A6DB90 /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -369,14 +365,13 @@
 				7D34539721E06646007B1B3E /* BooksResponseJSONDecoder.swift in Sources */,
 				7D34538121E0414E007B1B3E /* EndPointType.swift in Sources */,
 				7D3F105021E1FA4D0033C3E3 /* Log.swift in Sources */,
-				7D34539C21E0A46D007B1B3E /* BooksRepository.swift in Sources */,
 				7D3F104421E1B8CC0033C3E3 /* DeviceExtensions.swift in Sources */,
+				7D2352D621E4DF780041C917 /* KeywordIndexer.swift in Sources */,
 				7D0F1CB921E07A8300E26CAE /* BookModel.swift in Sources */,
 				7DD90FDF21DDDE2000A6DB90 /* AppDelegate.swift in Sources */,
 				7D34539321E05389007B1B3E /* BooksApi.swift in Sources */,
 				7D0F1CBE21E07F1600E26CAE /* BookTableViewCell.swift in Sources */,
 				7D34539521E058FA007B1B3E /* ServiceManager.swift in Sources */,
-				7D3453A021E0AA9E007B1B3E /* SQLiteDatabase.swift in Sources */,
 				7D3453A421E0ED0E007B1B3E /* Binder.swift in Sources */,
 				7D34538B21E04501007B1B3E /* URLParameterEncoder.swift in Sources */,
 				7D34538321E0425F007B1B3E /* HTTPMethod.swift in Sources */,
@@ -384,6 +379,7 @@
 				7DD9100421DE03A400A6DB90 /* BooksTableViewController.swift in Sources */,
 				7D34538521E04282007B1B3E /* HTTPRequest.swift in Sources */,
 				7D34538D21E0467B007B1B3E /* JSONParameterEncoder.swift in Sources */,
+				7D2352D421E4DD9E0041C917 /* StringTokenizer.swift in Sources */,
 				7D0F1CB621E07A2500E26CAE /* BooksViewModel.swift in Sources */,
 				7D34538921E04442007B1B3E /* ParameterEncoder.swift in Sources */,
 				7D34539921E0813E007B1B3E /* URLImageView.swift in Sources */,
@@ -395,9 +391,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				7D2352D821E4E6870041C917 /* KeywordIndexerTest.swift in Sources */,
 				7D3F104A21E1E41F0033C3E3 /* BooksViewModelTest.swift in Sources */,
 				7D3F104E21E1F49D0033C3E3 /* BooksResponseJSONDescoderTest.swift in Sources */,
-				7D3F104821E1CDFE0033C3E3 /* BookRepositoryTest.swift in Sources */,
 				7D3F104C21E1F10E0033C3E3 /* ServiceManagerTest.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

@@ -26,15 +26,19 @@ import Foundation
  Binder class used by model view to update the UI elements
  */
 class Binder<T> {
-    typealias Listener = (T) -> Void
+    typealias Listener = (T?) -> Void
     var listener: Listener?
     
     /**
-     Method to retreive the value. Used by listener to fetch the values and update the UI
+     To retreive the value. Used by listener to fetch the values and update the UI
      */
     var value: T? {
         didSet {
-            listener?(value!)
+            if let value = value {
+                listener?(value)
+            }else{
+                listener?(nil)
+            }
         }
     }
     
@@ -42,7 +46,6 @@ class Binder<T> {
         if let value = value {
             self.value = value
         }
-        self.value = nil
     }
     
     /**
