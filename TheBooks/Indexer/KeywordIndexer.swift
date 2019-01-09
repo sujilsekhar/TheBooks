@@ -91,7 +91,28 @@ class KeywordIndexer{
     func resultSet(searchString : String) -> [BookModel]{
         
         var resultSet = [BookModel]()
-        if let recordSet = keywordIndex[searchString] {
+        
+        let searchStrings = searchString.lowercased().split{ $0 == " "}
+        
+        for searchKey in searchStrings {
+            let resultSetKeys = keywordIndex.filter {
+                let item = $0
+                return item.key.contains(String(searchKey))
+            }
+            
+            for (resultKey, _) in resultSetKeys{
+                resultSet.append(contentsOf:(self.getResultSetforIndex(key: resultKey)))
+            }
+        }
+        
+        
+        
+        return resultSet
+    }
+    
+    func getResultSetforIndex(key: String)->[BookModel]{
+        var resultSet = [BookModel]()
+        if let recordSet = keywordIndex[key] {
             let sortedRecordSet = recordSet.sorted{$0.rank < $1.rank}
             for record in sortedRecordSet{
                 if let recordItem = dataIndex[String(record.identifier)]{
