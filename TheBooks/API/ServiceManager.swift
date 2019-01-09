@@ -85,11 +85,11 @@ class ServiceManager {
                             completion(nil, NetworkResponse.noData.rawValue)
                         }
                     }catch {
-                        print(error)
+                        Log.e(error)
                         completion(nil, NetworkResponse.unableToDecode.rawValue)
                     }
                 case .failure(let networkFailureError):
-                    print("error")
+                    Log.e("error")
                     completion(nil, networkFailureError)
                 }
             }

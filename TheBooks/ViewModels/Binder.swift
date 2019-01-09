@@ -30,7 +30,7 @@ class Binder<T> {
     var listener: Listener?
     
     /**
-     Method to retreive the value. Used by listener to fetch the values and update the UI
+     To retreive the value. Used by listener to fetch the values and update the UI
      */
     var value: T? {
         didSet {

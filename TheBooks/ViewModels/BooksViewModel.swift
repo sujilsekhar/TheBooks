@@ -35,26 +35,12 @@ import UIKit
 class BooksViewModel{
     
     var serviceManager = ServiceManager()
-    var booksRepository = BooksRepository()
     var keyWordIndexer = KeywordIndexer()
     
     var booklist: Binder<[BookModel]> = Binder(nil)
     
     /**
-     This method opens the local SQlite db and creates the required tables
- 
-    */
-    func openDatabase() throws{
-        do {
-            try booksRepository.openDatabase()
-        }
-        catch( let message) {
-            throw message
-        }
-    }
-    
-    /**
-     This method retrieves book data from service and update the view using th binder
+     This method retrieves book data from service and update the view using the binder
      Returns error through a completion block
      
      */
@@ -71,12 +57,12 @@ class BooksViewModel{
                 completion("No books available on the selected date")
                 return
             }
-            
-            //Currently we are deleting existing books when a new api call kicks in
-            //TODO: Identify the delta and update the same only
-            self.deleteBooks()
-            
+            //Using an integer based identifier
             var identifier:UInt = 1
+            
+            //clear existing search result and its indexes
+            self.keyWordIndexer.clearAll()
+            
             for list in responseData.results.lists{
                 for book in list.books{
                     
@@ -91,84 +77,36 @@ class BooksViewModel{
                     
                     identifier += 1
                     
-                    self.keyWordIndexer.indexBookData(book: bookData)
-                    
-                    
-                    /*do {
-                        try self.booksRepository.insertBook(book: book)
-                    }
-                    catch {
-                        Log.e("Error while inserting data")
-                    }*/
+                    self.keyWordIndexer.addBookToIndexSet(book: bookData)
                 }
             }
             
-            /*do{
-                if let booksList = try self.booksRepository.fetch(){
-                    self.booklist.value = booksList
-                }
-            }catch( let message){
-                completion(message.localizedDescription)
-            }*/
-            
-            self.booklist.value = self.keyWordIndexer.getResultset();
-            
-            print(self.keyWordIndexer.printCurrentIndex())
-            
+            self.booklist.value = self.keyWordIndexer.getResultsetAll();
             completion(nil)
         }
     }
     
     /**
-     Implements search functionality using SQLLite FTS5 and return booklist
+     Implements search functionality using an in memory search mechanism and return booklist
      
     */
     func searchInBooks(searchString: String){
-        /*do{
-            if let booksList = try self.booksRepository.search(text: searchString){
-                self.booklist.value = booksList
-            }
-        }catch{
-            Log.i("Search returned zero results")
-        }*/
-        
-        print(searchString)
-        if searchString.count == 0 {
-            self.booklist.value = self.keyWordIndexer.getResultset();
+        if searchString.isEmpty {
+            self.booklist.value = self.keyWordIndexer.getResultsetAll();
         }else{
-            let resultSet = self.keyWordIndexer.resultSet(searchString: searchString.lowercased())
-            if resultSet.count > 0 {
+            let resultSet = self.keyWordIndexer.getResultSet(searchString: searchString.lowercased())
+            if !resultSet.isEmpty {
                 self.booklist.value = resultSet
             }else{
                 self.booklist.value = [nil] as? [BookModel]
             }
         }
-        
     }
     /**
-     Retreives all book data from local db
+     Retreives all book data from local cache
     */
     func fetchAllBooks(){
-        /*do{
-            if let booksList = try self.booksRepository.fetch(){
-                self.booklist.value = booksList
-            }
-        }catch{
-            Log.e("Error while fetching data")
-        }*/
-        self.booklist.value = self.keyWordIndexer.getResultset();
-    }
-    
-    /**
-     deletes all book data from local db
-     */
-    func deleteBooks(){
-        do {
-            try self.booksRepository.deleteBooks()
-        }
-        catch {
-            Log.e("Error while deleting data")
-        }
+        self.booklist.value = self.keyWordIndexer.getResultsetAll();
     }
     
 }

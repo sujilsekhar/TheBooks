@@ -30,11 +30,13 @@ class KeywordIndexerTest: XCTestCase {
         book.author = "These are second class keywords author"
         book.publisher = "These are second class keywords  publisher"
         book.contributor = "These are second class keywords contributor"
-        book.description = "These are third class keywords describtion"
+        book.description = "These are least class keywords describtion"
         
-        indexer.indexBookData(book: book)
+        indexer.addBookToIndexSet(book: book)
         
-        indexer.printCurrentIndex()
+        XCTAssert(indexer.keywordIndexSet["first"]!.first?.rank == 1)
+        XCTAssert(indexer.keywordIndexSet["second"]!.first?.rank == 2)
+        XCTAssert(indexer.keywordIndexSet["least"]!.first?.rank == 3)
         
     }
     
@@ -44,13 +46,18 @@ class KeywordIndexerTest: XCTestCase {
         
         
         book.bookIdentifier = 1
-        book.title = "These are first class keywords"
+        book.title = "These are first class keywords publisher"
         book.author = "These are second class keywords author"
         book.publisher = "These are second class keywords  publisher"
         book.contributor = "These are second class keywords contributor"
-        book.description = "These are third class keywords describtion"
+        book.description = "These are third class keywords description"
         
-        indexer.indexBookData(book: book)
+        indexer.addBookToIndexSet(book: book)
+        
+        XCTAssert(indexer.keywordIndexSet["publisher"]!.first?.rank == 1)
+        XCTAssert(indexer.keywordIndexSet["author"]!.first?.rank == 2)
+        XCTAssert(indexer.keywordIndexSet["description"]!.first?.rank == 3)
+        
         
         book.bookIdentifier = 2
         book.title = "These are first class keywords"
@@ -59,9 +66,13 @@ class KeywordIndexerTest: XCTestCase {
         book.contributor = "These are second class keywords describtion"
         book.description = "These are third class keywords contributor"
         
-        indexer.indexBookData(book: book)
+        indexer.addBookToIndexSet(book: book)
         
-        indexer.printCurrentIndex()
+        XCTAssert(indexer.keywordIndexSet["publisher"]!.contains(IndexItem(id:1, rank:1)) &&
+                  indexer.keywordIndexSet["publisher"]!.contains(IndexItem(id:2, rank:2)))
+        
+        XCTAssert(indexer.keywordIndexSet["author"]!.contains(IndexItem(id:1, rank:2)) &&
+            indexer.keywordIndexSet["author"]!.contains(IndexItem(id:2, rank:2)))
         
     }
     

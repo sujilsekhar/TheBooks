@@ -123,13 +123,7 @@ extension BooksTableViewController{
        Query view model to fetch the data for today
     */
     func getBookListForToday(){
-        do{
-            try self.booksViewModel.openDatabase()
-            getBookListFromViewModel(date: Date())
-        }catch( _){
-            self.navigationItem.rightBarButtonItem?.isEnabled = false
-            self.showAlert(message: "Error in initializing resources")
-        }
+        getBookListFromViewModel(date: Date())
     }
     
     

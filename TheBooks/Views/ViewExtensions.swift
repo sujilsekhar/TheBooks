@@ -93,7 +93,7 @@ extension UITableView {
                 break
             case .bottom:
                 if numberOfRows > 0 {
-                    let indexPath = IndexPath(row: numberOfRows-1, section: (numberOfSections-1))
+                    let indexPath = IndexPath(row: numberOfRows - 1, section: (numberOfSections - 1))
                     self.scrollToRow(at: indexPath, at: .bottom, animated: animated)
                 }
                 break

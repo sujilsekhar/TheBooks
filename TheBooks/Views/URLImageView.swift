@@ -37,7 +37,7 @@ class URLImageView: UIImageView {
                 let data = data, error == nil,
                 let image = UIImage(data: data)
                 else {
-                    print("Image \(url) not loaded")
+                    Log.e("Image \(url) not loaded")
                     return
             }
             DispatchQueue.main.async() {
@@ -50,7 +50,7 @@ class URLImageView: UIImageView {
     
     func from(link: String, contentMode mode: UIViewContentMode = .scaleAspectFit) {
         guard let url = URL(string: link) else {
-            print("Image \(link) not loaded")
+            Log.e("Image \(link) not loaded")
             return
         }
         from(url: url, contentMode: mode)
