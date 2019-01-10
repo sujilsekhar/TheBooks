@@ -47,7 +47,7 @@ class IndexItem : Hashable{
     }
     
     var hashValue: Int{
-        return identifier.hashValue
+        return (identifier + String(rank)).hashValue
     }
     
     static func == (lhs: IndexItem, rhs: IndexItem) -> Bool {
