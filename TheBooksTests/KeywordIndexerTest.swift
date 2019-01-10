@@ -25,7 +25,7 @@ class KeywordIndexerTest: XCTestCase {
         let indexer = KeywordIndexer()
         
         
-        book.bookIdentifier = 1
+        book.bookIdentifier = ShortCodeGenerator.generate(length: 6)
         book.title = "These are first class keywords"
         book.author = "These are second class keywords author"
         book.publisher = "These are second class keywords  publisher"
@@ -45,12 +45,14 @@ class KeywordIndexerTest: XCTestCase {
         let indexer = KeywordIndexer()
         
         
-        book.bookIdentifier = 1
+        book.bookIdentifier = ShortCodeGenerator.generate(length: 6)
         book.title = "These are first class keywords publisher"
         book.author = "These are second class keywords author"
         book.publisher = "These are second class keywords  publisher"
         book.contributor = "These are second class keywords contributor"
         book.description = "These are third class keywords description"
+        
+        let firstBookId = book.bookIdentifier
         
         indexer.addBookToIndexSet(book: book)
         
@@ -59,20 +61,22 @@ class KeywordIndexerTest: XCTestCase {
         XCTAssert(indexer.keywordIndexSet["description"]!.first?.rank == 3)
         
         
-        book.bookIdentifier = 2
+        book.bookIdentifier = ShortCodeGenerator.generate(length: 6)
         book.title = "These are first class keywords"
         book.author = "These are second class keywords author"
         book.publisher = "These are second class keywords  publisher"
         book.contributor = "These are second class keywords describtion"
         book.description = "These are third class keywords contributor"
         
+        let secondBookId = book.bookIdentifier
+        
         indexer.addBookToIndexSet(book: book)
         
-        XCTAssert(indexer.keywordIndexSet["publisher"]!.contains(IndexItem(id:1, rank:1)) &&
-                  indexer.keywordIndexSet["publisher"]!.contains(IndexItem(id:2, rank:2)))
+        XCTAssert(indexer.keywordIndexSet["publisher"]!.contains(IndexItem(id:firstBookId, rank:1)) &&
+                  indexer.keywordIndexSet["publisher"]!.contains(IndexItem(id:secondBookId, rank:2)))
         
-        XCTAssert(indexer.keywordIndexSet["author"]!.contains(IndexItem(id:1, rank:2)) &&
-            indexer.keywordIndexSet["author"]!.contains(IndexItem(id:2, rank:2)))
+        XCTAssert(indexer.keywordIndexSet["author"]!.contains(IndexItem(id:firstBookId, rank:2)) &&
+            indexer.keywordIndexSet["author"]!.contains(IndexItem(id:secondBookId, rank:2)))
         
     }
     

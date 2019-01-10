@@ -57,8 +57,6 @@ class BooksViewModel{
                 completion("No books available on the selected date")
                 return
             }
-            //Using an integer based identifier
-            var identifier:UInt = 1
             
             //clear existing search result and its indexes
             self.keyWordIndexer.clearAll()
@@ -73,9 +71,7 @@ class BooksViewModel{
                     bookData.contributor = book.contributor
                     bookData.description = book.description
                     bookData.bookUrl = book.bookUrl
-                    bookData.bookIdentifier = identifier
-                    
-                    identifier += 1
+                    bookData.bookIdentifier = ShortCodeGenerator.generate(length: 6)
                     
                     self.keyWordIndexer.addBookToIndexSet(book: bookData)
                 }

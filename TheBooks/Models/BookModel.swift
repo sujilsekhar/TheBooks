@@ -24,7 +24,7 @@ import UIKit
 
 class BookModel{
     
-    var bookIdentifier : UInt = 0
+    var bookIdentifier : String = ""
     var title:String = ""
     var author = ""
     var publisher = ""

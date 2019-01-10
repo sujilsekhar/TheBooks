@@ -1,18 +1,47 @@
+//MIT License
 //
-//  TokenIndexer.swift
-//  TheBooks
+//Copyright © 2019 Sujil Chandresekharan
 //
-//  Created by Sujil Chandrasekharan on 08/01/19.
-//  Copyright © 2019 Sujil Chandrasekharan. All rights reserved.
+//Permission is hereby granted, free of charge, to any person obtaining a copy
+//of this software and associated documentation files (the "Software"), to deal
+//in the Software without restriction, including without limitation the rights
+//to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+//copies of the Software, and to permit persons to whom the Software is
+//furnished to do so, subject to the following conditions:
 //
+//The above copyright notice and this permission notice shall be included in all
+//copies or substantial portions of the Software.
+//
+//THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+//IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+//FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+//AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+//LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+//OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+//SOFTWARE.
 
 import Foundation
 
+struct ShortCodeGenerator {
+    
+    private static let base62chars = [Character]("0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz")
+    private static let maxBase : UInt32 = 62
+    
+    static func generate(withBase base: UInt32 = maxBase, length: Int) -> String {
+        var code = ""
+        for _ in 0..<length {
+            let random = Int(arc4random_uniform(min(base, maxBase)))
+            code.append(base62chars[random])
+        }
+        return code
+    }
+}
+
 class IndexItem : Hashable{
-    var identifier:Int
+    var identifier:String
     var rank:Int
     
-    init(id: Int, rank: Int) {
+    init(id: String, rank: Int) {
         self.identifier = id
         self.rank = rank
     }
@@ -29,6 +58,7 @@ class IndexItem : Hashable{
         return lhs.identifier < rhs.identifier
     }
 }
+
 
 enum SearchWeights {
     
@@ -90,29 +120,29 @@ class KeywordIndexer{
         
         //Tokenize and add title keywords to index with a rank of 1
         self.updateIndex(tokens: Tokenizer.getTokenizedString(string:book.title),
-                         bookIdentifier: Int(book.bookIdentifier),
+                         bookIdentifier: book.bookIdentifier,
                          rank: SearchWeights.Title.weightage())
         
         //Tokenize and add author keywords to index with a rank of 2
         self.updateIndex(tokens: Tokenizer.getTokenizedString(string:book.author),
-                         bookIdentifier: Int(book.bookIdentifier),
+                         bookIdentifier: book.bookIdentifier,
                          rank: SearchWeights.Author.weightage())
         
         //Tokenize and add publisher keywords to index with a rank of 2
         self.updateIndex(tokens: Tokenizer.getTokenizedString(string:book.publisher),
-                         bookIdentifier: Int(book.bookIdentifier),
+                         bookIdentifier: book.bookIdentifier,
                          rank: SearchWeights.Publisher.weightage())
         
         //Tokenize and add contributor keywords to index with a rank of 2
         self.updateIndex(tokens: Tokenizer.getTokenizedString(string:book.contributor),
-                         bookIdentifier: Int(book.bookIdentifier),
+                         bookIdentifier: book.bookIdentifier,
                          rank: SearchWeights.contributor.weightage())
         
         //Tokenize and add contributor keywords to index with a rank of 3, Also
         //enable stop words all stop words in the description will be discarded
         self.updateIndex(tokens: Tokenizer.getTokenizedString(string:book.description,
                                                               useStopWords: true),
-                         bookIdentifier: Int(book.bookIdentifier),
+                         bookIdentifier: book.bookIdentifier,
                          rank: SearchWeights.description.weightage())
     }
     
@@ -121,7 +151,7 @@ class KeywordIndexer{
         dataModel[String(book.bookIdentifier)] = book
     }
     
-    func updateIndex(tokens:[String.SubSequence], bookIdentifier: Int, rank: Int){
+    func updateIndex(tokens:[String.SubSequence], bookIdentifier: String, rank: Int){
         
         //For each word on tokens
         for word in tokens {
